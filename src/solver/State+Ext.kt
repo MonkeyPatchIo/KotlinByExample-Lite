@@ -17,14 +17,23 @@ typealias StateWithHistory = Pair<State, List<Move>>
  */
 fun State.availableMoves(): Collection<Move> {
     val glassNotEmptyIndexes: List<Int> =
-        TODO("2.2")
+        mapIndexed { index, glass -> index to glass }
+            .filterNot { (_, glass) -> glass.isEmpty() }
+            .map { (index, _) -> index }
 
     val glassNotFillIndexes: List<Int> =
-        TODO("2.2")
+        mapIndexed { index, glass -> index to glass }
+            .filterNot { (_, glass) -> glass.isFull() }
+            .map { (index, _) -> index }
 
-    val empties: List<Move> = TODO("2.2")
-    val fills: List<Move> = TODO("2.2")
-    val pours: List<Move> = TODO("2.2")
+    val empties: List<Move> = glassNotEmptyIndexes.map { Empty(it) }
+    val fills: List<Move> = glassNotFillIndexes.map { Fill(it) }
+    val pours: List<Move> =
+        glassNotEmptyIndexes.flatMap { from ->
+            glassNotFillIndexes.map { to -> Pair(from, to) }
+                .filterNot { (from, to) -> from == to }
+                .map { (from, to) -> Pour(from, to) }
+        }
 
     return empties + fills + pours
 }
