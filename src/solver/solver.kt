@@ -34,7 +34,7 @@ internal fun nextStatesFromState(stateWithHistory: StateWithHistory): List<State
  * @return all next [StateWithHistory]
  */
 internal fun nextStatesFromCollection(statesWithHistory: Collection<StateWithHistory>): List<StateWithHistory> =
-    TODO("2.5")
+    statesWithHistory.flatMap { nextStatesFromState(it) }
 
 /**
  * Compute all visited [State] with previous visited [State], and new ones
