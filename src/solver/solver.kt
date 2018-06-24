@@ -22,7 +22,9 @@ internal fun findSolution(statesWithHistory: Collection<StateWithHistory>, expec
  * @return all next [StateWithHistory] with processing all available [Move] of [State]
  */
 internal fun nextStatesFromState(stateWithHistory: StateWithHistory): List<StateWithHistory> {
-    TODO("2.4")
+    val (state, history) = stateWithHistory
+    return state.availableMoves()
+        .map { move -> state.process(move) to (history + move) }
 }
 
 /**
