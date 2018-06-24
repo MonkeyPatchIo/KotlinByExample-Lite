@@ -9,7 +9,7 @@ import models.Glass
  * @return `true` if the [Glass] is empty, `false` otherwise
  */
 fun Glass.isEmpty(): Boolean =
-    TODO("1.1")
+    current == 0
 
 /**
  * Is the [Glass] is full ?

@@ -196,15 +196,6 @@ val solveSpecs = test("2/ Solver Tests") {
             solution shouldHaveSize 7
         }
 
-        it("should solve 0/24, 0/13, 0/11, 0/5 to 6/24, 6/13, 6/11, 0/5") {
-            val from = "0/24, 0/13, 0/11, 0/5".toState()
-            val to = "6/24, 6/13, 6/11, 0/5".toState()
-
-            val solution = solve(from, to)
-
-            solution shouldHaveSize 10
-        }
-
         it("should fail if there is no solution") {
             val from = "0/8, 0/4, 0/2".toState()
             val to = "1/8, 0/4, 0/2".toState()
