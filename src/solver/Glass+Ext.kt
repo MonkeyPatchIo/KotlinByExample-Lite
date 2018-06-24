@@ -25,7 +25,7 @@ fun Glass.isFull(): Boolean =
  * @return remaining volume
  */
 fun Glass.remainingVolume(): Int =
-    TODO("1.3")
+    capacity - current
 
 /**
  * Empty a [Glass].
