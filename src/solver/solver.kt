@@ -55,5 +55,26 @@ internal fun allVisitedStates(visitedStates: Set<State>, newlyStates: List<State
  * @throws IllegalStateException if no solution found
  */
 fun solve(from: State, to: State): List<Move> {
-    TODO("2.7")
+
+    tailrec fun aux(statesWithHistory: Collection<StateWithHistory>, visitedStates: Set<State>): List<Move> {
+        // Terminal case
+        val result = findSolution(statesWithHistory, to)
+        if (result != null) {
+            return result
+        }
+
+        // next recursion parameters
+        val nextStatesWithHistory = nextStatesFromCollection(statesWithHistory)
+        val nextVisitedStates = allVisitedStates(visitedStates, nextStatesWithHistory)
+
+        // Avoid infinite loop
+        if (nextVisitedStates == visitedStates) {
+            throw IllegalStateException("No solution found 😢")
+        }
+
+        // recursion
+        return aux(nextStatesWithHistory, nextVisitedStates)
+    }
+
+    return aux(listOf(from to emptyList()), setOf(from))
 }
